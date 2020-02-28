@@ -1,0 +1,1 @@
+# El controller se encarga de orquestar todas las consultas a la API (y solo de la api)
