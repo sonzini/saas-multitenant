@@ -1,34 +1,43 @@
 import { PAYMENT_SCENARIOS, PAYMENT_STATUS } from '../../../helpers/constants';
 
-const Payments = sequelize.define('Payments', {
-  name: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  scenario: {
-    type: Sequelize.ENUM,
-    values: Object.keys(PAYMENT_SCENARIOS),
-    allowNull: false,
-  },
-  amount: {
-    type: Sequelize.DECIMAL(10, 2),
-    allowNull: false,
-    defaultValue: 0,
-  },
-  collect_at: {
-    type: Sequelize.DATE,
-    allowNull: false,
-  },
-  status: {
-    type: Sequelize.ENUM,
-    values: Object.keys(PAYMENT_STATUS),
-    allowNull: false,
-  }
-}, {
-  paranoid: true,
-});
+export default (sequelize, DataTypes) => {
+  const Payments = sequelize.define('Payments',
+    {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      scenario: {
+        type: DataTypes.ENUM,
+        values: Object.keys(PAYMENT_SCENARIOS),
+        allowNull: false,
+      },
+      amount: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: false,
+        defaultValue: 0,
+      },
+      collect_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      status: {
+        type: DataTypes.ENUM,
+        values: Object.keys(PAYMENT_STATUS),
+        allowNull: false,
+      },
+    },
+    {
+      paranoid: true,
+      underscored: true,
+      underscoredAll: true,
+    },
+  );
 
-Payments.hasMany(PaymentAttempts)
-Payments.belongsTo(Services)
-Payments.belongsTo(Card)
+  Payments.associate = ({ PaymentAttempts }) => {
+    Payments.hasMany(PaymentAttempts);
+  };
+
+  return Payments;
+};

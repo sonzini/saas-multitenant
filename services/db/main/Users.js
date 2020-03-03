@@ -1,50 +1,57 @@
 import { USER_ROLES } from '../../../helpers/constants';
 
-const Users = sequelize.define('Users', {
-  first_name: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  last_name: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      isEmail: true,
+export default (sequelize, DataTypes) => {
+  const Users = sequelize.define('Users',
+    {
+      first_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      last_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          isEmail: true,
+        },
+      },
+      hash: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      salt: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      activationKey: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      resetPasswordKey: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      verified: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+      },
+      role: {
+        type: DataTypes.ENUM,
+        values: Object.keys(USER_ROLES),
+        allowNull: false,
+        defaultValue: USER_ROLES.ADMIN,
+      },
     },
-  },
-  hash: {
-    type: Sequelize.TEXT,
-    allowNull: true,
-  },
-  salt: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  activationKey: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  resetPasswordKey: {
-    type: Sequelize.STRING,
-    allowNull: true,
-  },
-  verified: {
-    type: Sequelize.BOOLEAN,
-    allowNull: true,
-  },
-  role: {
-    type: Sequelize.ENUM,
-    values: Object.keys(USER_ROLES),
-    allowNull: false,
-    defaultValue: USER_ROLES.ADMIN,
-  },
-}, {
-  paranoid: true,
-});
+    {
+      paranoid: true,
+      underscored: true,
+      underscoredAll: true,
+    },
+  );
 
-Users.belongsTo(Accounts)
+  return Users;
+};

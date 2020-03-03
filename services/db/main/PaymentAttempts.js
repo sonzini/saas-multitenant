@@ -1,18 +1,24 @@
 import { PAYMENT_SCENARIOS, PAYMENT_STATUS } from '../../../helpers/constants';
 
-const PaymentAttempts = sequelize.define('PaymentAttempts', {
-  status: {
-    type: Sequelize.ENUM,
-    values: Object.keys(PAYMENT_STATUS),
-    allowNull: false,
-  },
-  payload: {
-    type: Sequelize.TEXT,
-    allowNull: false,
-  },
-}, {
-  paranoid: true,
-});
+export default (sequelize, DataTypes) => {
+  const PaymentAttempts = sequelize.define('PaymentAttempts',
+    {
+      status: {
+        type: DataTypes.ENUM,
+        values: Object.keys(PAYMENT_STATUS),
+        allowNull: false,
+      },
+      payload: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+    },
+    {
+      paranoid: true,
+      underscored: true,
+      underscoredAll: true,
+    },
+  );
 
-PaymentAttempts.belongsTo(Payments)
-
+  return PaymentAttempts;
+};

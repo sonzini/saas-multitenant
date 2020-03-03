@@ -1,12 +1,22 @@
-const Cards = sequelize.define('Cards', {
-  token: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-  },
-}, {
-  paranoid: true,
-});
+export default (sequelize, DataTypes) => {
+  const Cards = sequelize.define('Cards',
+    {
+      token: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+    },
+    {
+      paranoid: true,
+      underscored: true,
+      underscoredAll: true,
+    },
+  );
 
-Cards.hasMany(Payments)
-Cards.belongsTo(Accounts)
+  Cards.associate = ({ Payments }) => {
+    Cards.hasMany(Payments);
+  };
+
+  return Cards;
+};

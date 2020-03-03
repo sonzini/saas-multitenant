@@ -3,13 +3,15 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import compression from 'compression';
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 
 dotenv.config();
 
 // Inicializar conexion con DB
+import './services/db/main';
 // Inicializar el Worker
 
+import morgan from './middlewares/morgan';
 import routes from './routes';
 
 const app = express();
@@ -21,11 +23,13 @@ app.enable('trust proxy');
 
 app.use(compression());
 
+app.use(morgan);
+
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.use(routes);
 
