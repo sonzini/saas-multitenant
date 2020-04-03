@@ -1,10 +1,11 @@
-import { Plans, Products } from "../db/main";
-import { getProductById } from "../products";
+import { Plans, Products } from '../db/main';
+import { getProductById } from '../products';
 
-export const getPlans = ({ transaction = null } = {}) => Plans.findAll({ transaction });
+export const getPlans = ({ transaction = null } = {}) =>
+  Plans.findAll({ transaction });
 
 export const getPlanById = (id, { transaction = null } = {}) =>
-  Plans.scope("view").findByPk(id, { transaction });
+  Plans.scope('view').findByPk(id, { transaction });
 
 export const createPlan = (payload, { transaction = null } = {}) =>
   Plans.create(payload, { transaction });
@@ -15,7 +16,10 @@ export const editPlan = async (payload, { transaction = null } = {}) => {
   return plan.update(payload, { transaction });
 };
 
-export const editPlanProducts = async (payload, { transaction = null } = {}) => {
+export const editPlanProducts = async (
+  payload,
+  { transaction = null } = {}
+) => {
   /**
    * Selected: In the payload
    * Original: All the products that have been in the plan
@@ -26,7 +30,7 @@ export const editPlanProducts = async (payload, { transaction = null } = {}) => 
   const { id, products } = payload;
   const selectedProductsId = products.map(p => p.id);
 
-  const plan = await getPlanById(id, { include: ["products"], transaction });
+  const plan = await getPlanById(id, { include: ['products'], transaction });
 
   const originalProductsId = plan.products.map(p => p.id);
   const newProductsId = selectedProductsId.filter(
@@ -68,9 +72,12 @@ export const deletePlan = async (id, { transaction = null } = {}) => {
 export const getPlansByAccountId = (account_id, { transaction = null } = {}) =>
   Plans.findAll({ where: { account_id }, transaction });
 
-export const getPlansByProductId = async (product_id, { transaction = null } = {}) => {
+export const getPlansByProductId = async (
+  product_id,
+  { transaction = null } = {}
+) => {
   const product = await Products.findByPk(product_id, {
-    include: ["plans"],
+    include: ['plans'],
     transaction
   });
   return product.plans;

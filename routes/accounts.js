@@ -7,20 +7,20 @@ import {
   createDeletionLog,
 } from '../services/logger';
 import {
-  getAccounts,
-  createAccount,
-  editAccount,
-  deleteAccount,
-  getAccountById,
+  getAccountsController,
+  createAccountController,
+  editAccountController,
+  deleteAccountController,
+  getAccountByIdController,
 } from '../controllers/accounts';
-import { getCardsByAccountId } from '../controllers/cards';
-import { getPlansByAccountId } from '../controllers/services';
-import { getUsersByAccountId } from '../controllers/users';
+import { getCardsByAccountIdController } from '../controllers/cards';
+import { getPlansByAccountIdController } from '../controllers/plans';
+import { getUsersByAccountIdController } from '../controllers/users';
 
 const router = AsyncRouter();
 
 router.get('/', async (req, res) => {
-  const accounts = await getAccounts();
+  const accounts = await getAccountsController();
 
   createRequestLog(req);
 
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
 
-  const account = await getAccountById(id);
+  const account = await getAccountByIdController(id);
 
   createRequestLog(req);
 
@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
     ...req.body,
   };
 
-  const account = await createAccount(payload);
+  const account = await createAccountController(payload);
 
   createCreationLog(req, account);
 
@@ -55,7 +55,7 @@ router.put('/:id', async (req, res) => {
     id: req.params.id,
   };
 
-  const account = await editAccount(payload);
+  const account = await editAccountController(payload);
 
   createEditionLog(req, account);
 
@@ -65,7 +65,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
 
-  const account = await deleteAccount(id);
+  const account = await deleteAccountController(id);
 
   createDeletionLog(req, account);
 
@@ -75,7 +75,7 @@ router.delete('/:id', async (req, res) => {
 router.get('/:id/cards', async (req, res) => {
   const { id } = req.params;
 
-  const cards = await getCardsByAccountId(id);
+  const cards = await getCardsByAccountIdController(id);
 
   createRequestLog(req);
 
@@ -85,7 +85,7 @@ router.get('/:id/cards', async (req, res) => {
 router.get('/:id/plans', async (req, res) => {
   const { id } = req.params;
 
-  const plans = await getPlansByAccountId(id);
+  const plans = await getPlansByAccountIdController(id);
 
   createRequestLog(req);
 
@@ -95,7 +95,7 @@ router.get('/:id/plans', async (req, res) => {
 router.get('/:id/users', async (req, res) => {
   const { id } = req.params;
 
-  const users = await getUsersByAccountId(id);
+  const users = await getUsersByAccountIdController(id);
 
   createRequestLog(req);
 

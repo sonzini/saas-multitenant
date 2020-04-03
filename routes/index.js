@@ -1,17 +1,28 @@
-import { AsyncRouter } from "express-async-router";
+import { AsyncRouter } from 'express-async-router';
 
-import cards from "./cards";
-import plans from "./plans";
-import products from "./products";
+import ping from '../middlewares/ping';
+import date from '../middlewares/date';
+import favicon from '../middlewares/favicon';
+import logErrors from '../middlewares/logErrors';
+import errorHandler from '../middlewares/errorHandler';
+
+import cards from './cards';
+import plans from './plans';
+import products from './products';
+import accounts from './accounts';
 
 const router = AsyncRouter();
 
-router.get("/ping", async (req, res) => res.status(200).send("pong"));
-router.get("/date", async (req, res) => res.status(200).send(new Date().toISOString()));
-router.get("/favicon.ico", async (req, res) => res.status(204).end());
+router.get('/ping', ping);
+router.get('/date', date);
+router.get('/favicon.ico', favicon);
 
-router.use("/cards", cards);
-router.use("/plans", plans);
-router.use("/products", products);
+router.use('/cards', cards);
+router.use('/plans', plans);
+router.use('/products', products);
+router.use('/accounts', accounts);
+
+router.use(logErrors);
+router.use(errorHandler);
 
 export default router;

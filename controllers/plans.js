@@ -1,4 +1,4 @@
-import { DBMain } from "../services/db/main";
+import { DBMain } from '../services/db/main';
 import {
   getPlans,
   getPlanById,
@@ -8,15 +8,15 @@ import {
   getPlansByAccountId,
   getPlansByProductId,
   editPlanProducts,
-  addPlanProduct
-} from "../services/plans";
+  addPlanProduct,
+} from '../services/plans';
 
 export const getPlansController = async () => {
   try {
     // @TODO: Validations
 
     // Requests
-    const result = await DBMain.transaction(async transaction => {
+    const result = await DBMain.transaction(async (transaction) => {
       const plans = await getPlans({ transaction });
 
       return plans;
@@ -28,12 +28,12 @@ export const getPlansController = async () => {
   }
 };
 
-export const getPlanByIdController = async id => {
+export const getPlanByIdController = async (id) => {
   try {
     // @TODO: Validations
 
     // Requests
-    const result = await DBMain.transaction(async transaction => {
+    const result = await DBMain.transaction(async (transaction) => {
       const plan = await getPlanById(id, { transaction });
 
       return plan;
@@ -42,16 +42,16 @@ export const getPlanByIdController = async id => {
     return result;
   } catch (error) {
     // @TODO: Error handler
-    console.log(error)
+    console.log(error);
   }
 };
 
-export const createPlanController = async payload => {
+export const createPlanController = async (payload) => {
   try {
     // @TODO: Validations
 
     // Requests
-    const result = await DBMain.transaction(async transaction => {
+    const result = await DBMain.transaction(async (transaction) => {
       const plan = await createPlan(payload, { transaction });
 
       return plan;
@@ -60,7 +60,7 @@ export const createPlanController = async payload => {
     return result;
   } catch (error) {
     // @TODO: Error handler
-    console.log(error)
+    console.log(error);
   }
 };
 
@@ -69,7 +69,7 @@ export const editPlanController = async (payload) => {
     // @TODO: Validations
 
     // Requests
-    const result = await DBMain.transaction(async transaction => {
+    const result = await DBMain.transaction(async (transaction) => {
       const plan = await editPlan(payload, { transaction });
 
       return plan;
@@ -78,7 +78,7 @@ export const editPlanController = async (payload) => {
     return result;
   } catch (error) {
     // @TODO: Error handler
-    console.log(error)
+    console.log(error);
   }
 };
 
@@ -87,7 +87,7 @@ export const editPlanProductsController = async (payload) => {
     // @TODO: Validations
 
     // Requests
-    const result = await DBMain.transaction(async transaction => {
+    const result = await DBMain.transaction(async (transaction) => {
       const plan = await editPlanProducts(payload, { transaction });
 
       return plan;
@@ -96,7 +96,7 @@ export const editPlanProductsController = async (payload) => {
     return result;
   } catch (error) {
     // @TODO: Error handler
-    console.log(error)
+    console.log(error);
   }
 };
 
@@ -105,7 +105,7 @@ export const addPlanProductController = async (payload) => {
     // @TODO: Validations
 
     // Requests
-    const result = await DBMain.transaction(async transaction => {
+    const result = await DBMain.transaction(async (transaction) => {
       const plan = await addPlanProduct(payload, { transaction });
 
       return plan;
@@ -114,7 +114,7 @@ export const addPlanProductController = async (payload) => {
     return result;
   } catch (error) {
     // @TODO: Error handler
-    console.log(error)
+    console.log(error);
   }
 };
 
@@ -123,7 +123,7 @@ export const deletePlanController = async () => {
     // @TODO: Validations
 
     // Requests
-    const result = await DBMain.transaction(async transaction => {
+    const result = await DBMain.transaction(async (transaction) => {
       const plan = await deletePlan(id, { transaction });
 
       return plan;
@@ -135,12 +135,12 @@ export const deletePlanController = async () => {
   }
 };
 
-export const getPlansByAccountIdController = async accountId => {
+export const getPlansByAccountIdController = async (accountId) => {
   try {
     // @TODO: Validations
 
     // Requests
-    const result = await DBMain.transaction(async transaction => {
+    const result = await DBMain.transaction(async (transaction) => {
       const plans = await getPlansByAccountId(accountId, { transaction });
 
       return plans;
@@ -152,12 +152,12 @@ export const getPlansByAccountIdController = async accountId => {
   }
 };
 
-export const getPlansByProductIdController = async planId => {
+export const getPlansByProductIdController = async (planId) => {
   try {
     // @TODO: Validations
 
     // Requests
-    const result = await DBMain.transaction(async transaction => {
+    const result = await DBMain.transaction(async (transaction) => {
       const plans = await getPlansByProductId(planId, { transaction });
 
       return plans;

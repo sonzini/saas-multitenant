@@ -58,7 +58,7 @@ export default (sequelize, DataTypes) => {
 
   Plans.initScopes = () => {
     Plans.addScope("view", {
-      include: ["products", "account"]
+      include: ["products"]
     });
   };
 
