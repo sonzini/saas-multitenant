@@ -1,3 +1,9 @@
+/**
+ * Cards: The data of the payment method our customer use.
+ * 
+ * WIP
+ */
+
 export default (sequelize, DataTypes) => {
   const Cards = sequelize.define('Cards',
     {

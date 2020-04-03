@@ -23,17 +23,23 @@ export const PAYMENT_STATUS = Object.freeze({
   REJECTED: 'REJECTED',
 });
 
-export const SERVICE_TYPES = Object.freeze({
+export const PLAN_TYPES = Object.freeze({
   CUSTOM: 'CUSTOM',
   BASIC: 'BASIC',
   STANDARD: 'STANDARD',
   PREMIUM: 'PREMIUM',
 });
 
-export const SERVICE_STATUS = Object.freeze({
+export const PLAN_STATUS = Object.freeze({
   INITIALIZED: 'INITIALIZED',
   ACTIVE: 'ACTIVE',
   SUSPEND: 'SUSPEND',
+});
+
+export const PRODUCT_STATUS = Object.freeze({
+  BETA: 'BETA',
+  ACTIVE: 'ACTIVE',
+  DEPRECATED: 'DEPRECATED',
 });
 
 export const PERIOD_TYPES = Object.freeze({

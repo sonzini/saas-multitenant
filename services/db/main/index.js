@@ -3,10 +3,10 @@ import { Sequelize } from 'sequelize';
 // Import Models
 import AccountsModel from './Accounts';
 import CardsModel from './Cards';
-import FeaturesModel from './Features';
+import ProductsModel from './Products';
 import PaymentAttemptsModel from './PaymentAttempts';
 import PaymentsModel from './Payments';
-import ServicesModel from './Services';
+import PlansModel from './Plans';
 import UsersModel from './Users';
 
 // Get config data to connect to MainDB
@@ -18,30 +18,30 @@ const DB_PORT = process.env.DB_PORT || 3306;
 const DB_HOSTNAME = process.env.DB_HOSTNAME || 'localhost';
 
 // Initialize Sequelize
-const sequelizeMain = new Sequelize(DB_DATABASE, DB_USERNAME, DB_PASSWORD, {
+const DBMain = new Sequelize(DB_DATABASE, DB_USERNAME, DB_PASSWORD, {
   host: DB_HOSTNAME,
   dialect: 'mysql',
   port: DB_PORT,
 });
 
 // Set Models
-const Accounts = AccountsModel(sequelizeMain, Sequelize);
-const Cards = CardsModel(sequelizeMain, Sequelize);
-const Features = FeaturesModel(sequelizeMain, Sequelize);
-const PaymentAttempts = PaymentAttemptsModel(sequelizeMain, Sequelize);
-const Payments = PaymentsModel(sequelizeMain, Sequelize);
-const Services = ServicesModel(sequelizeMain, Sequelize);
-const Users = UsersModel(sequelizeMain, Sequelize);
+const Accounts = AccountsModel(DBMain, Sequelize);
+const Cards = CardsModel(DBMain, Sequelize);
+const Products = ProductsModel(DBMain, Sequelize);
+const PaymentAttempts = PaymentAttemptsModel(DBMain, Sequelize);
+const Payments = PaymentsModel(DBMain, Sequelize);
+const Plans = PlansModel(DBMain, Sequelize);
+const Users = UsersModel(DBMain, Sequelize);
 
 const models = {
   Accounts,
   Cards,
-  Features,
+  Products,
   PaymentAttempts,
   Payments,
-  Services,
+  Plans,
   Users,
-}
+};
 
 // Associate Models
 for (const model in models) {
@@ -50,13 +50,25 @@ for (const model in models) {
   }
 }
 
-sequelizeMain.sync({ force: true }).then(() => {
-  console.log(`Database & tables created!`);
-});
+// Initialize Scopes
+for (const model in models) {
+  if (typeof models[model].initScopes === 'function') {
+    models[model].initScopes(models);
+  }
+}
 
-// Inicializar Scopes (Aunque aun no los usamos)
+// DBMain.sync({ force: true }).then(() => {
+//   console.log(`Database & tables created!`);
+// });
 
-export default {
-  sequelizeMain,
-  ...models,
+
+export {
+  DBMain,
+  Accounts,
+  Cards,
+  Products,
+  PaymentAttempts,
+  Payments,
+  Plans,
+  Users,
 };

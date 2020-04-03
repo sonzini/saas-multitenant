@@ -1,13 +1,12 @@
 import { PAYMENT_SCENARIOS, PAYMENT_STATUS } from '../../../helpers/constants';
 
+/**
+ * Payments: All the bills we have to declare. All what we are going to collect and we collected
+ */
+
 export default (sequelize, DataTypes) => {
   const Payments = sequelize.define('Payments',
     {
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
       scenario: {
         type: DataTypes.ENUM,
         values: Object.keys(PAYMENT_SCENARIOS),

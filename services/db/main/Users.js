@@ -1,5 +1,9 @@
 import { USER_ROLES } from '../../../helpers/constants';
 
+/**
+ * Users: People that can login into the system. Should be linked to an account
+ */
+
 export default (sequelize, DataTypes) => {
   const Users = sequelize.define('Users',
     {
