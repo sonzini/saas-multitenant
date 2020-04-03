@@ -1,8 +1,24 @@
-export const getPaymentsController = () => {}
-export const getPaymentByIdController = () => {}
-export const createPaymentController = () => {}
-export const editPaymentController = () => {}
-export const deletePaymentController = () => {}
+import { Error501NotImplemented } from '../services/errors';
 
-export const getPaymentsByCardIdController = () => {}
-export const getPaymentsByProductIdController = () => {}
+export const getPaymentsController = () => {
+  throw new Error501NotImplemented();
+};
+export const getPaymentByIdController = () => {
+  throw new Error501NotImplemented();
+};
+export const createPaymentController = () => {
+  throw new Error501NotImplemented();
+};
+export const editPaymentController = () => {
+  throw new Error501NotImplemented();
+};
+export const deletePaymentController = () => {
+  throw new Error501NotImplemented();
+};
+
+export const getPaymentsByCardIdController = () => {
+  throw new Error501NotImplemented();
+};
+export const getPaymentsByProductIdController = () => {
+  throw new Error501NotImplemented();
+};

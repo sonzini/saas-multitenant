@@ -1,12 +1,16 @@
-import { createProduct, getProducts, getProductById } from "../services/products";
-import { DBMain } from "../services/db/main";
+import {
+  createProduct,
+  getProducts,
+  getProductById,
+} from '../services/products';
+import { DBMain } from '../services/db/main';
 
 export const getProductsController = async () => {
   try {
     // @TODO: Validations
 
     // Requests
-    const result = await DBMain.transaction(async transaction => {
+    const result = await DBMain.transaction(async (transaction) => {
       const products = await getProducts({ transaction });
 
       return products;
@@ -18,12 +22,12 @@ export const getProductsController = async () => {
     console.log(error);
   }
 };
-export const getProductByIdController = async id => {
+export const getProductByIdController = async (id) => {
   try {
     // @TODO: Validations
 
     // Requests
-    const result = await DBMain.transaction(async transaction => {
+    const result = await DBMain.transaction(async (transaction) => {
       const product = await getProductById(id, { transaction });
 
       return product;
@@ -35,12 +39,12 @@ export const getProductByIdController = async id => {
     console.log(error);
   }
 };
-export const createProductController = async payload => {
+export const createProductController = async (payload) => {
   try {
     // @TODO: Validations
 
     // Requests
-    const result = await DBMain.transaction(async transaction => {
+    const result = await DBMain.transaction(async (transaction) => {
       const product = await createProduct(payload, { transaction });
 
       return product;
