@@ -1,69 +1,63 @@
-import { PLAN_TYPES, PLAN_STATUS, PERIOD_TYPES } from "../../../helpers/constants";
+import { PLAN_TYPES, PERIOD_TYPES } from '../../../helpers/constants';
 
 /**
- * Plans: The thing (service) that our clients are paying for.
- * This consist in a list of products we serve, in a specific period at an specific price
+ * Plans: List of products we serve
  */
 
 export default (sequelize, DataTypes) => {
   const Plans = sequelize.define(
-    "Plans",
+    'Plans',
     {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
       type: {
         type: DataTypes.ENUM,
         values: Object.keys(PLAN_TYPES),
-        allowNull: false
-      },
-      status: {
-        type: DataTypes.ENUM,
-        values: Object.keys(PLAN_STATUS),
         allowNull: false,
-        defaultValue: PLAN_STATUS.INITIALIZED
       },
-      price: {
+      default_price: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
-        defaultValue: 0
+        defaultValue: 0,
       },
-      start_at: {
-        type: DataTypes.DATE,
-        allowNull: false
-      },
-      finish_at: {
-        type: DataTypes.DATE
-      },
-      period: {
+      default_period: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
-      period_type: {
+      default_period_type: {
         type: DataTypes.ENUM,
         values: Object.keys(PERIOD_TYPES),
-        allowNull: false
-      }
+        allowNull: false,
+      },
     },
     {
       underscored: true,
       underscoredAll: true,
-      paranoid: true
-    }
+      paranoid: true,
+    },
   );
 
-  Plans.associate = ({ Products, Payments, Accounts }) => {
-    Plans.belongsToMany(Products, { through: "plans_products", as: "products" });
-    Plans.hasMany(Payments);
-
-    Plans.belongsTo(Accounts, { as: "account" });
+  Plans.associate = ({ Products, Subscriptions }) => {
+    Plans.belongsToMany(Products, {
+      through: 'plans_products',
+      as: 'products',
+    });
+    Plans.hasMany(Subscriptions);
   };
 
   Plans.initScopes = () => {
-    Plans.addScope("view", {
-      include: ["products"]
+    Plans.addScope('view', {
+      include: ['products'],
     });
   };
 
-  Plans.prototype.removeProducts = function(products, { transaction } = {}) {
-    return Promise.all(products.map(p => this.removeProduct(p, { transaction })));
+  Plans.prototype.removeProducts = function (products, { transaction } = {}) {
+    return Promise.all(
+      products.map((p) => this.removeProduct(p, { transaction })),
+    );
   };
 
   return Plans;

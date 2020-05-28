@@ -8,6 +8,7 @@ import PaymentAttemptsModel from './PaymentAttempts';
 import PaymentsModel from './Payments';
 import PlansModel from './Plans';
 import UsersModel from './Users';
+import SubscriptionsModel from './Subscriptions';
 
 // Get config data to connect to MainDB
 // const NODE_ENV = process.env.NODE_ENV || 'develop';
@@ -32,6 +33,7 @@ const PaymentAttempts = PaymentAttemptsModel(DBMain, Sequelize);
 const Payments = PaymentsModel(DBMain, Sequelize);
 const Plans = PlansModel(DBMain, Sequelize);
 const Users = UsersModel(DBMain, Sequelize);
+const Subscriptions = SubscriptionsModel(DBMain, Sequelize);
 
 const models = {
   Accounts,
@@ -41,6 +43,7 @@ const models = {
   Payments,
   Plans,
   Users,
+  Subscriptions,
 };
 
 // Associate Models
@@ -61,6 +64,9 @@ for (const model in models) {
 //   console.log(`Database & tables created!`);
 // });
 
+// DBMain.sync({ force: false }).then(() => {
+//   console.log(`Database & tables created!`);
+// });
 
 export {
   DBMain,
@@ -71,4 +77,5 @@ export {
   Payments,
   Plans,
   Users,
+  Subscriptions,
 };

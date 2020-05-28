@@ -1,19 +1,19 @@
-import {
-  createProduct,
-  getProducts,
-  getProductById,
-} from '../services/products';
 import { DBMain } from '../services/db/main';
+import {
+  getSubscriptions,
+  getSubscriptionById,
+  createSubscription,
+} from '../services/subscriptions';
 
-export const getProductsController = async () => {
+export const getSubscriptionsController = async () => {
   try {
     // @TODO: Validations
 
     // Requests
     const result = await DBMain.transaction(async (transaction) => {
-      const products = await getProducts({ transaction });
+      const subscriptions = await getSubscriptions({ transaction });
 
-      return products;
+      return subscriptions;
     });
 
     return result;
@@ -23,15 +23,15 @@ export const getProductsController = async () => {
   }
 };
 
-export const getProductByIdController = async (id) => {
+export const getSubscriptionByIdController = async (id) => {
   try {
     // @TODO: Validations
 
     // Requests
     const result = await DBMain.transaction(async (transaction) => {
-      const product = await getProductById(id, { transaction });
+      const subscription = await getSubscriptionById(id, { transaction });
 
-      return product;
+      return subscription;
     });
 
     return result;
@@ -41,15 +41,15 @@ export const getProductByIdController = async (id) => {
   }
 };
 
-export const createProductController = async (payload) => {
+export const createSubscriptionController = async (payload) => {
   try {
     // @TODO: Validations
 
     // Requests
     const result = await DBMain.transaction(async (transaction) => {
-      const product = await createProduct(payload, { transaction });
+      const subscription = await createSubscription(payload, { transaction });
 
-      return product;
+      return subscription;
     });
 
     return result;
@@ -58,8 +58,3 @@ export const createProductController = async (payload) => {
     console.log(error);
   }
 };
-
-export const editProductController = () => {};
-export const deleteProductController = () => {};
-
-export const getProductsByPlanIdController = () => {};

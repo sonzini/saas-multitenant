@@ -26,39 +26,29 @@ export const getAccountsController = async () => {
 };
 
 export const getAccountByIdController = async (id) => {
-  try {
-    // @TODO: Validations
+  // @TODO: Validations
 
-    // Requests
-    const result = await DBMain.transaction(async (transaction) => {
-      const account = await getAccountById(id, { transaction });
+  // Requests
+  const result = await DBMain.transaction(async (transaction) => {
+    const account = await getAccountById(id, { transaction });
 
-      return account;
-    });
+    return account;
+  });
 
-    return result;
-  } catch (error) {
-    // @TODO: Error handler
-    console.log(error);
-  }
+  return result;
 };
 
 export const createAccountController = async (payload) => {
-  try {
-    // @TODO: Validations
+  // @TODO: Validations
 
-    // Requests
-    const result = await DBMain.transaction(async (transaction) => {
-      const account = await createAccount(payload, { transaction });
+  // Requests
+  const result = await DBMain.transaction(async (transaction) => {
+    const account = await createAccount(payload, { transaction });
 
-      return account;
-    });
+    return account;
+  });
 
-    return result;
-  } catch (error) {
-    // @TODO: Error handler
-    console.log(error);
-  }
+  return result;
 };
 
 export const editAccountController = async (payload) => {

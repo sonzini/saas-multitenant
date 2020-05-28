@@ -1,23 +1,23 @@
-import { AsyncRouter } from "express-async-router";
+import { AsyncRouter } from 'express-async-router';
 
 import {
   createRequestLog,
   createCreationLog,
   createEditionLog,
-  createDeletionLog
-} from "../services/logger";
+  createDeletionLog,
+} from '../services/logger';
 import {
   getProductsController,
   createProductController,
   editProductController,
   deleteProductController,
-  getProductByIdController
-} from "../controllers/products";
-import { getPlansByProductIdController } from "../controllers/plans";
+  getProductByIdController,
+} from '../controllers/products';
+import { getPlansByProductIdController } from '../controllers/plans';
 
 const router = AsyncRouter();
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   const products = await getProductsController();
 
   createRequestLog(req);
@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
   res.json(products);
 });
 
-router.get("/:id", async (req, res) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
 
   const product = await getProductByIdController(id);
@@ -35,9 +35,9 @@ router.get("/:id", async (req, res) => {
   res.json(product);
 });
 
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   const payload = {
-    ...req.body
+    ...req.body,
   };
 
   const product = await createProductController(payload);
@@ -47,10 +47,10 @@ router.post("/", async (req, res) => {
   res.json(product);
 });
 
-router.put("/:id", async (req, res) => {
+router.put('/:id', async (req, res) => {
   const payload = {
     ...req.body,
-    id: req.params.id
+    id: req.params.id,
   };
 
   const product = await editProductController(payload);
@@ -60,7 +60,7 @@ router.put("/:id", async (req, res) => {
   res.json(product);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete('/:id', async (req, res) => {
   const { id } = req.params;
 
   const product = await deleteProductController(id);
@@ -70,7 +70,7 @@ router.delete("/:id", async (req, res) => {
   res.json(product);
 });
 
-router.get("/:id/plans", async (req, res) => {
+router.get('/:id/plans', async (req, res) => {
   const { id } = req.params;
 
   const plans = await getPlansByProductIdController(id);

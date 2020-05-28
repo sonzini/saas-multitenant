@@ -1,4 +1,4 @@
-import { Plans, Products } from "../db/main";
+import { Plans, Products } from '../db/main';
 
 export const getProducts = ({ transaction = null } = {}) =>
   Products.findAll({ transaction });
@@ -20,10 +20,13 @@ export const deleteProduct = async (id, { transaction = null } = {}) => {
   return product.destroy();
 };
 
-export const getProductsByPlanId = async (plan_id, { transaction = null } = {}) => {
+export const getProductsByPlanId = async (
+  plan_id,
+  { transaction = null } = {},
+) => {
   const plan = await Plans.findByPk(plan_id, {
-    include: ["products"],
-    transaction
+    include: ['products'],
+    transaction,
   });
   return plan.plans;
 };

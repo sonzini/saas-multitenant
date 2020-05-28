@@ -10,6 +10,7 @@ import cards from './cards';
 import plans from './plans';
 import products from './products';
 import accounts from './accounts';
+import subscriptions from './subscriptions';
 
 const router = AsyncRouter();
 
@@ -21,6 +22,7 @@ router.use('/cards', cards);
 router.use('/plans', plans);
 router.use('/products', products);
 router.use('/accounts', accounts);
+router.use('/subscriptions', subscriptions);
 
 router.use(logErrors);
 router.use(errorHandler);

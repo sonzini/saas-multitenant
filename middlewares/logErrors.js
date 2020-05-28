@@ -1,4 +1,4 @@
-export default logErrors = (err, req, res, next) => {
+export default (err, req, res, next) => {
   console.error(err.stack);
   next(err);
 };

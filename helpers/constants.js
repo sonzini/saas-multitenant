@@ -30,7 +30,7 @@ export const PLAN_TYPES = Object.freeze({
   PREMIUM: 'PREMIUM',
 });
 
-export const PLAN_STATUS = Object.freeze({
+export const SUBSCRIPTION_STATUS = Object.freeze({
   INITIALIZED: 'INITIALIZED',
   ACTIVE: 'ACTIVE',
   SUSPEND: 'SUSPEND',
