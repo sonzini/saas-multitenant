@@ -1,5 +1,8 @@
-import { SUBSCRIPTION_STATUS, PERIOD_TYPES } from '../../../helpers/constants';
-import { Cards } from '.';
+import {
+  SUBSCRIPTION_STATUS,
+  PERIOD_TYPES,
+  PAYMENT_SCENARIOS,
+} from '../../../helpers/constants';
 
 /**
  * Subscriptions: The thing (service) that our clients are paying for in a specific period at an specific price
@@ -35,6 +38,12 @@ export default (sequelize, DataTypes) => {
       },
       finish_at: {
         type: DataTypes.DATE,
+      },
+      scenario: {
+        type: DataTypes.ENUM,
+        values: Object.keys(PAYMENT_SCENARIOS),
+        defaultValue: PAYMENT_SCENARIOS.STRIPE,
+        allowNull: false,
       },
     },
     {

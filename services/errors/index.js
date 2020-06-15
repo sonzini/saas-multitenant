@@ -8,6 +8,14 @@ export default class CustomError extends Error {
   }
 }
 
+export class Error400BadRequest extends CustomError {
+  constructor({ message, data, area } = {}) {
+    super({ message, code: 400, data });
+
+    Object.setPrototypeOf(this, Error400BadRequest.prototype);
+  }
+}
+
 export class Error401Unauthorized extends CustomError {
   constructor({ message, data, area } = {}) {
     super({ message, code: 401, data });
@@ -24,11 +32,11 @@ export class Error404NotFound extends CustomError {
   }
 }
 
-export class Error400BadRequest extends CustomError {
+export class Error422UnprocessableEntity extends CustomError {
   constructor({ message, data, area } = {}) {
-    super({ message, code: 400, data });
+    super({ message, code: 404, data });
 
-    Object.setPrototypeOf(this, Error400BadRequest.prototype);
+    Object.setPrototypeOf(this, Error422UnprocessableEntity.prototype);
   }
 }
 
